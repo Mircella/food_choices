@@ -2,11 +2,19 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sns
+import os
 
 #import the data
 food_coded_original = pd.read_csv('food_coded.csv')
 food_coded = food_coded_original.copy()
+
+#save the dataset
+def write_df_to_csv (data_dir, file_name, data_frame):
+    if not os.path.exists(data_dir):
+        os.makedirs(data_dir)
+    data_frame.to_csv(os.path.join(data_dir, file_name), header=True, index=False)
+write_df_to_csv('exported_data','full_gpa.csv', food_coded)
+
 
 #---clean GPA to have only floats
 #food_coded['GPA'] = food_coded['GPA'].str.replace(r'\D+','') - leave only digits
@@ -79,6 +87,7 @@ autolabel(unhealthy)
 autolabel(const)
 autolabel(unclear)
 plt.show()
+
 
 
 
